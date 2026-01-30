@@ -1,0 +1,26 @@
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Backend (C++)
+*.exe
+*.out
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+
+# Build / temp
+build/
+dist/
+
+# C++ build files
+*.o
+*.exe

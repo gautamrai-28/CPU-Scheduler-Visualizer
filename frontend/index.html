@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Scheduling Simulator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-microchip"></i> CPU Scheduling Algorithms</h1>
+            <p class="subtitle">OS Process Scheduling Simulator </p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-sliders-h"></i> Configuration</h2>
+                </div>
+
+                <div class="algorithm-selection">
+                    <h3>Select Algorithm</h3>
+                    <div class="algorithms-grid">
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="FCFS" checked>
+                            <span class="algo-name">FCFS</span>
+                            <span class="algo-desc">First Come First Serve</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="SJF">
+                            <span class="algo-name">SJF</span>
+                            <span class="algo-desc">Shortest Job First</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="SRTF">
+                            <span class="algo-name">SRTF</span>
+                            <span class="algo-desc">Shortest Remaining Time First</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="LJF">
+                            <span class="algo-name">LJF</span>
+                            <span class="algo-desc">Longest Job First</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="LRTF">
+                            <span class="algo-name">LRTF</span>
+                            <span class="algo-desc">Longest Remaining Time First</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="HRRN">
+                            <span class="algo-name">HRRN</span>
+                            <span class="algo-desc">Highest Response Ratio Next</span>
+                        </label>
+                        <label class="algorithm-option">
+                            <input type="radio" name="algorithm" value="RR">
+                            <span class="algo-name">RR</span>
+                            <span class="algo-desc">Round Robin</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="time-quantum-container hidden" id="timeQuantumContainer">
+                    <h3>Time Quantum</h3>
+                    <input type="number" id="timeQuantum" min="1" value="2" class="time-quantum-input">
+                </div>
+
+                <div class="process-table-container">
+                    <div class="table-header">
+                        <h3>Process Details</h3>
+                        <div class="table-controls">
+                            <button id="addProcess" class="btn btn-secondary">
+                                <i class="fas fa-plus"></i> Add Process
+                            </button>
+                            <button id="removeProcess" class="btn btn-secondary">
+                                <i class="fas fa-minus"></i> Remove Last
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <table class="process-table">
+                            <thead>
+                                <tr>
+                                    <th>Process ID</th>
+                                    <th>Arrival Time</th>
+                                    <th>Burst Time</th>
+                                </tr>
+                            </thead>
+                            <tbody id="processTableBody">
+                                <!-- Process rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="runScheduler" class="btn btn-primary btn-large">
+                        <i class="fas fa-play"></i> Run Scheduler
+                    </button>
+                    <button id="resetForm" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </section>
+
+            <!-- Output Section -->
+            <section class="output-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Simulation Results</h2>
+                    <div class="algorithm-indicator">
+                        <span id="selectedAlgorithm">FCFS</span>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <div class="loading hidden" id="loading">
+                        <div class="spinner"></div>
+                        <p>Running simulation via backend...</p>
+                    </div>
+
+                    <div class="no-results" id="noResults">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Configure settings and run scheduler to see results</p>
+                    </div>
+
+                    <div class="results hidden" id="results">
+                        <!-- Gantt Chart -->
+                        <div class="gantt-chart-container">
+                            <h3><i class="fas fa-stream"></i> Gantt Chart</h3>
+                            <div class="gantt-chart" id="ganttChart">
+                                <!-- Gantt bars will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Process Table -->
+                        <div class="results-table-container">
+                            <h3><i class="fas fa-table"></i> Process Metrics</h3>
+                            <div class="table-wrapper">
+                                <table class="results-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Process</th>
+                                            <th>Arrival</th>
+                                            <th>Burst</th>
+                                            <th>Completion</th>
+                                            <th>Turnaround</th>
+                                            <th>Waiting</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resultsTableBody">
+                                        <!-- Results will be inserted here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Average Metrics -->
+                        <div class="metrics-summary">
+                            <h3><i class="fas fa-calculator"></i> Performance Metrics</h3>
+                            <div class="metrics-grid" id="metricsGrid">
+                                <!-- Metrics will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+ <footer class="app-footer">
+    <span>Developed by <strong>Gautam</strong></span>
+
+    <div class="social-links">
+        <a href="https://github.com/gautamrai-28" target="_blank" title="GitHub">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+        </a>
+
+        <a href="https://www.linkedin.com/in/gautam-kumar-128a902ab/" target="_blank" title="LinkedIn">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn">
+        </a>
+    </div>
+</footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

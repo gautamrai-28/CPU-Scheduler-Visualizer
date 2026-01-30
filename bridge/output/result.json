@@ -1,0 +1,19 @@
+{
+    "algorithm": "FCFS",
+    "ganttChart": [
+        {
+            "duration": 1,
+            "pid": "P1"
+        }
+    ],
+    "processTable": [
+        {
+            "arrivalTime": 0,
+            "burstTime": 1,
+            "completionTime": 1,
+            "pid": "P1",
+            "turnaroundTime": 1,
+            "waitingTime": 0
+        }
+    ]
+}
