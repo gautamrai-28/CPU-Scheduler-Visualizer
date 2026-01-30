@@ -4,7 +4,6 @@ A full-stack CPU Scheduling Algorithm Visualizer built using **C++ (backend)**, 
 
 This project simulates and visualizes classical CPU scheduling algorithms with accurate computations performed in C++ for performance and correctness.
 
----
 
 ## 🚀 Features
 
@@ -29,7 +28,6 @@ This project simulates and visualizes classical CPU scheduling algorithms with a
   - Throughput
 - Clean separation of frontend, backend, and bridge
 
----
 
 ## 🛠️ Tech Stack
 
@@ -38,7 +36,6 @@ This project simulates and visualizes classical CPU scheduling algorithms with a
 - **Frontend:** HTML, CSS, JavaScript
 - **Data Exchange:** JSON
 
----
 
 ## 📁 Project Structure
 
@@ -49,9 +46,6 @@ CPU-Scheduler-Visualizer/
 ├── .gitignore
 └── README.md
 
-
----
-
 ## ▶️ How It Works
 
 1. User enters process data in the frontend
@@ -61,7 +55,6 @@ CPU-Scheduler-Visualizer/
 5. Node.js sends result back to frontend
 6. Frontend renders Gantt chart & metrics
 
----
 
 ## 📌 How to Run Locally
 
