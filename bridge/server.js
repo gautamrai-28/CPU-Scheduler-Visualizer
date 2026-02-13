@@ -5,33 +5,43 @@ const { execFile } = require("child_process");
 const cors = require("cors");
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
 // Absolute project root
 const ROOT_DIR = path.resolve(__dirname, "..");
 
-// Input/output paths
+// ===== FRONTEND STATIC SERVING =====
+app.use(express.static(path.join(ROOT_DIR, "frontend")));
+
+// Serve index.html on root
+app.get("/", (req, res) => {
+  res.sendFile(path.join(ROOT_DIR, "frontend", "index.html"));
+});
+
+// ===== FILE PATHS =====
 const INPUT_PATH = path.join(ROOT_DIR, "bridge", "input", "processes.json");
 const OUTPUT_PATH = path.join(ROOT_DIR, "bridge", "output", "result.json");
 
-// Windows + Linux compatible binary
+// Cross-platform scheduler binary
 const SCHEDULER_PATH = path.join(
   ROOT_DIR,
   process.platform === "win32" ? "scheduler.exe" : "scheduler"
 );
 
+// ===== API ROUTE =====
 app.post("/schedule", (req, res) => {
   try {
     // 1️⃣ Write input JSON
     fs.writeFileSync(INPUT_PATH, JSON.stringify(req.body, null, 2));
 
-    // 2️⃣ Execute C++ binary directory
+    // 2️⃣ Execute C++ scheduler
     execFile(
       SCHEDULER_PATH,
-      { cwd: ROOT_DIR },  
+      { cwd: ROOT_DIR },
       (error, stdout, stderr) => {
-
         if (error) {
           console.error("C++ execution error:", error);
           console.error("STDERR:", stderr);
@@ -41,7 +51,7 @@ app.post("/schedule", (req, res) => {
         }
 
         try {
-          // 3️⃣ Read output JSON safely
+          // 3️⃣ Read output JSON
           const result = JSON.parse(
             fs.readFileSync(OUTPUT_PATH, "utf-8")
           );
@@ -63,8 +73,9 @@ app.post("/schedule", (req, res) => {
   }
 });
 
-// Render auto assigns PORT
+// ===== START SERVER =====
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Bridge running on port ${PORT}`);
 });
