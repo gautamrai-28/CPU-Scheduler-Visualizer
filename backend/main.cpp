@@ -14,18 +14,16 @@
 #include "include/FCFS.h"
 #include "include/RoundRobin.h"
 #include "include/HRRN.h"
-#include "include/Priority.h"
-
 
 using json = nlohmann::json;
 using namespace std;
 
-#define OUTPUT_PATH "../bridge/output/result.json"
+#define OUTPUT_PATH "bridge/output/result.json"
 
 int main() {
 
     // ---------- READ INPUT JSON ----------
-    ifstream in("../bridge/input/processes.json");
+    ifstream in("bridge/input/processes.json");
     if (!in.is_open()) {
         cout << "Failed to open input JSON\n";
         return 1;
@@ -49,12 +47,11 @@ int main() {
         pr.pid = p["pid"];
         pr.arrivalTime = p["arrivalTime"];
         pr.burstTime = p["burstTime"];
-        pr.remainingTime = pr.burstTime;   // required
+        pr.remainingTime = pr.burstTime;
         pr.priority = p.value("priority", 0);
         processes.push_back(pr);
     }
 
-    // ---------- CREATE SCHEDULER ----------
     Scheduler* scheduler = nullptr;
 
     if (algorithm == "SJF")
@@ -71,17 +68,13 @@ int main() {
         scheduler = new LRTF(processes);
     else if (algorithm == "HRRN")
         scheduler = new HRRN(processes);
-    else if (algorithm == "PRIORITY")
-        scheduler = new Priority(processes);
     else {
         cout << "Algorithm not implemented\n";
         return 1;
     }
 
-    // ---------- RUN ALGORITHM ----------
     scheduler->schedule();
 
-    // ---------- WRITE OUTPUT JSON ----------
     json output;
     output["algorithm"] = algorithm;
 

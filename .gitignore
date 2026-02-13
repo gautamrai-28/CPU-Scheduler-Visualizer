@@ -5,6 +5,11 @@ npm-debug.log*
 # Backend (C++)
 *.exe
 *.out
+scheduler
+
+# Runtime JSON files
+bridge/input/processes.json
+bridge/output/result.json
 
 # OS files
 .DS_Store
@@ -23,4 +28,3 @@ dist/
 
 # C++ build files
 *.o
-*.exe
