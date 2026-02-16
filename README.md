@@ -1,75 +1,106 @@
-# CPU Scheduler Visualizer 🖥️📊
+CPU Scheduler Visualizer 🖥️📊
 
-A full-stack CPU Scheduling Algorithm Visualizer built using **C++ (backend)**, **Node.js (bridge server)**, and **HTML/CSS/JavaScript (frontend)**.
+A full-stack CPU Scheduling Algorithm Visualizer built using C++ (core engine), Node.js + Express (bridge server), and HTML/CSS/JavaScript (frontend).
 
-This project simulates and visualizes classical CPU scheduling algorithms with accurate computations performed in C++ for performance and correctness.
+The scheduling logic runs in C++ for performance and accuracy, while the Node.js server connects it to an interactive web interface.
 
+🚀 Features
+🔹 Implemented Algorithms (C++)
 
-## 🚀 Features
+FCFS (First Come First Serve)
 
-- Implements CPU Scheduling Algorithms in **C++**
-  - FCFS (First Come First Serve)
-  - SJF (Shortest Job First)
-  - SRTF (Shortest Remaining Time First)
-  - Round Robin
-  - HRRN
-  - LRTF
-- Interactive frontend for process input
-- Gantt Chart visualization
-- Process table with:
-  - Arrival Time
-  - Burst Time
-  - Completion Time
-  - Turnaround Time
-  - Waiting Time
-- Performance metrics:
-  - Average Waiting Time
-  - Average Turnaround Time
-  - Throughput
-- Clean separation of frontend, backend, and bridge
+SJF (Shortest Job First)
 
+SRTF (Shortest Remaining Time First)
 
-## 🛠️ Tech Stack
+LJF (Longest Job First)
 
-- **Backend:** C++ (core scheduling logic)
-- **Bridge Server:** Node.js + Express
-- **Frontend:** HTML, CSS, JavaScript
-- **Data Exchange:** JSON
+LRTF (Longest Remaining Time First)
 
+Round Robin
 
-## 📁 Project Structure
+HRRN
 
+🔹 Frontend Features
+
+Interactive process input table
+
+Dynamic algorithm selection
+
+Automatic metrics calculation
+
+Gantt Chart visualization
+
+Detailed process results table
+
+🔹 Performance Metrics
+
+Average Waiting Time
+
+Average Turnaround Time
+
+Total Completion Time
+
+Throughput
+
+🛠️ Tech Stack
+
+Core Engine: C++
+
+Backend Bridge: Node.js + Express
+
+Frontend: HTML, CSS, JavaScript
+
+Data Exchange: JSON
+
+Deployment: Render
+
+📁 Project Structure
 CPU-Scheduler-Visualizer/
-├── backend/ # C++ scheduling algorithms
-├── bridge/ # Node.js server (connects frontend & C++)
-├── frontend/ # UI (HTML/CSS/JS)
-├── .gitignore
+│
+├── backend/        # C++ scheduling logic
+├── bridge/         # Express server (C++ bridge)
+├── frontend/       # UI (HTML, CSS, JS)
+├── scheduler       # Compiled C++ executable
 └── README.md
 
-## ▶️ How It Works
+⚙️ How It Works
 
-1. User enters process data in the frontend
-2. Frontend sends JSON request to Node.js server
-3. Node.js invokes the C++ scheduler executable
-4. C++ processes scheduling and writes output JSON
-5. Node.js sends result back to frontend
-6. Frontend renders Gantt chart & metrics
+User enters process data in the browser
+
+Frontend sends JSON request to Express server
+
+Node.js writes input JSON
+
+C++ scheduler executable processes the data
+
+Output JSON is generated
+
+Server sends result back to frontend
+
+Gantt chart and metrics are rendered
+
+▶️ Run Locally
+1️⃣ Compile C++ Scheduler
+g++ scheduler.cpp -o scheduler
 
 
-## 📌 How to Run Locally
+(Windows)
 
-### 1️⃣ Backend (C++)
-- Compile scheduler using g++
-- Ensure `scheduler.exe` is accessible to Node.js
+g++ scheduler.cpp -o scheduler.exe
 
-### 2️⃣ Bridge Server
-```bash
+2️⃣ Start Bridge Server
 cd bridge
 npm install
 node server.js
 
-3️⃣ Frontend
+3️⃣ Open in Browser
 
-Open frontend/index.html in browser
+Visit:
 
+http://localhost:8080
 
+🌐 Live Deployment
+
+Deployed on Render.
+https://cpu-scheduler-visualizer-ny42.onrender.com/
