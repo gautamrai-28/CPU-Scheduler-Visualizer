@@ -134,7 +134,7 @@ class SchedulingSimulator {
     try {
       const payload = this.buildRequestPayload();
 
-      const response = await fetch("http://localhost:8080/schedule", {
+      const response = await fetch("https://cpu-scheduler-visualizer-ny42.onrender.com/schedule", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
