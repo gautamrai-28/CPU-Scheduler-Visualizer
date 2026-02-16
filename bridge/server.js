@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Absolute project root
+// Absolute project root (repo root)
 const ROOT_DIR = path.resolve(__dirname, "..");
 
 // ===== FRONTEND STATIC SERVING =====
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 const INPUT_PATH = path.join(ROOT_DIR, "bridge", "input", "processes.json");
 const OUTPUT_PATH = path.join(ROOT_DIR, "bridge", "output", "result.json");
 
-// Cross-platform scheduler binary
+// Scheduler binary path
 const SCHEDULER_PATH = path.join(
   ROOT_DIR,
   process.platform === "win32" ? "scheduler.exe" : "scheduler"
@@ -34,42 +34,70 @@ const SCHEDULER_PATH = path.join(
 // ===== API ROUTE =====
 app.post("/schedule", (req, res) => {
   try {
-    // 1️⃣ Write input JSON
-    fs.writeFileSync(INPUT_PATH, JSON.stringify(req.body, null, 2));
+    console.log("\n===============================");
+    console.log("=== SCHEDULE ROUTE HIT ===");
+    console.log("===============================");
 
-    // 2️⃣ Execute C++ scheduler
+    console.log("ROOT_DIR:", ROOT_DIR);
+    console.log("Scheduler path:", SCHEDULER_PATH);
+    console.log("Scheduler exists:", fs.existsSync(SCHEDULER_PATH));
+
+    console.log("Input folder exists:",
+      fs.existsSync(path.join(ROOT_DIR, "bridge", "input"))
+    );
+
+    console.log("Output folder exists:",
+      fs.existsSync(path.join(ROOT_DIR, "bridge", "output"))
+    );
+
+    console.log("Writing input JSON...");
+    fs.writeFileSync(INPUT_PATH, JSON.stringify(req.body, null, 2));
+    console.log("Input written successfully!");
+
+    console.log("Executing C++ scheduler...");
+
     execFile(
       SCHEDULER_PATH,
-      { cwd: ROOT_DIR },
+      { cwd: ROOT_DIR, timeout: 5000 },
       (error, stdout, stderr) => {
+
+        console.log("\n=== EXEC CALLBACK TRIGGERED ===");
+        console.log("STDOUT:", stdout);
+        console.log("STDERR:", stderr);
+
         if (error) {
-          console.error("C++ execution error:", error);
-          console.error("STDERR:", stderr);
+          console.error("Execution error object:", error);
           return res.status(500).json({
-            error: "C++ backend execution failed"
+            error: "C++ backend execution failed",
+            details: stderr || stdout || error.message
           });
         }
 
         try {
-          // 3️⃣ Read output JSON
+          console.log("Reading output JSON...");
           const result = JSON.parse(
             fs.readFileSync(OUTPUT_PATH, "utf-8")
           );
 
+          console.log("Output successfully read!");
           res.json(result);
 
         } catch (readError) {
           console.error("Output read error:", readError);
           return res.status(500).json({
-            error: "Failed to read scheduler output"
+            error: "Failed to read scheduler output",
+            details: readError.message
           });
         }
       }
     );
 
   } catch (err) {
-    console.error("Server error:", err);
-    res.status(500).json({ error: "Server crashed" });
+    console.error("Server crash:", err);
+    res.status(500).json({
+      error: "Server crashed",
+      details: err.message
+    });
   }
 });
 
