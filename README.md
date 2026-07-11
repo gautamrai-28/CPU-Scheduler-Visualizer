@@ -1,106 +1,319 @@
-CPU Scheduler Visualizer 🖥️📊
+# 🔄 CPU Scheduler Visualizer
 
-A full-stack CPU Scheduling Algorithm Visualizer built using C++ (core engine), Node.js + Express (bridge server), and HTML/CSS/JavaScript (frontend).
+An interactive web-based simulator engineered to demonstrate, analyze, and visualize operating system CPU scheduling algorithms in real-time. Designed to bridge theoretical Operating System concepts with modern web technologies, this project provides an intuitive environment for understanding, evaluating, and comparing classical CPU scheduling strategies through interactive visualizations and performance analytics.
 
-The scheduling logic runs in C++ for performance and accuracy, while the Node.js server connects it to an interactive web interface.
+---
 
-🚀 Features
-🔹 Implemented Algorithms (C++)
+## 🌐 Live Deployment
 
-FCFS (First Come First Serve)
+| Resource | Link |
+|----------|------|
+| **GitHub Repository** | https://github.com/gautamrai-28/CPU-Scheduler-Visualizer 
+| **Live Demo** | https://cpu-scheduler-visualizer-ny42.onrender.com/ 
 
-SJF (Shortest Job First)
+---
 
-SRTF (Shortest Remaining Time First)
+# 📖 Overview
 
-LJF (Longest Job First)
+CPU scheduling is one of the most fundamental concepts in Operating Systems. Understanding how different scheduling algorithms behave under varying workloads is essential for analyzing process execution efficiency and system performance.
 
-LRTF (Longest Remaining Time First)
+**CPU Scheduler Visualizer** provides an interactive environment where users can:
 
-Round Robin
+- Simulate multiple CPU scheduling algorithms
+- Visualize execution using animated Gantt Charts
+- Compare scheduling strategies
+- Observe process execution in real time
+- Analyze important scheduling metrics instantly
 
-HRRN
+The project combines a **high-performance C++ scheduling engine** with a **responsive web interface**, resulting in a production-ready educational visualization platform.
 
-🔹 Frontend Features
+---
 
-Interactive process input table
+# ✨ Core Simulation Features
 
-Dynamic algorithm selection
+## 📊 Interactive Gantt Chart Visualization
 
-Automatic metrics calculation
+Visualize process execution through an animated Gantt Chart that clearly illustrates:
 
-Gantt Chart visualization
+- Process execution order
+- Context switching
+- Idle CPU intervals
+- Execution timeline
+- Scheduling progression in real time
 
-Detailed process results table
+This graphical representation makes algorithm behavior significantly easier to understand than traditional textual outputs.
 
-🔹 Performance Metrics
+---
 
-Average Waiting Time
+## ⚙️ Comprehensive Algorithm Suite
 
-Average Turnaround Time
+The simulator supports a broad collection of classical CPU scheduling algorithms:
 
-Total Completion Time
+| Algorithm | Type |
+|-----------|------|
+| First-Come, First-Served (FCFS) | Non-Preemptive |
+| Shortest Job First (SJF) | Non-Preemptive |
+| Shortest Job First (SJF) | Preemptive |
+| Priority Scheduling | Non-Preemptive / Preemptive |
+| Round Robin (RR) | Time-Sliced |
 
-Throughput
+Each scheduling algorithm is executed independently while preserving algorithmic correctness and execution efficiency.
 
-🛠️ Tech Stack
+---
 
-Core Engine: C++
+## 📈 Real-Time Metrics & Evaluation
 
-Backend Bridge: Node.js + Express
+The simulator dynamically computes essential scheduling performance indicators, including:
 
-Frontend: HTML, CSS, JavaScript
+- Turnaround Time (TAT)
+- Waiting Time (WT)
+- Response Time (RT)
+- CPU Utilization
+- Average Waiting Time
+- Average Turnaround Time
+- Average Response Time
 
-Data Exchange: JSON
+These metrics allow users to objectively compare scheduling policies under identical workloads.
 
-Deployment: Render
+---
 
-📁 Project Structure
+## 🧩 Custom Workload Configuration
+
+Users can create fully customized scheduling scenarios by configuring:
+
+- Process IDs
+- Arrival Time
+- Burst Time
+- Priority
+- Time Quantum (Round Robin)
+
+This enables experimentation with diverse workloads and facilitates comparative scheduling analysis.
+
+---
+
+# 🏗️ Architecture & Tech Stack
+
+The project follows a modular architecture separating the scheduling engine from the visualization layer.
+
+## Core Logic & Scheduling Engine
+
+- **Language:** C++
+- Efficient implementation of classical scheduling algorithms
+- Optimized simulation logic
+- Deterministic scheduling computation
+- High algorithmic accuracy
+
+---
+
+## Graphical User Interface
+
+- HTML5
+- CSS3
+- JavaScript
+
+Features include:
+
+- Responsive layout
+- Interactive controls
+- Dynamic timeline rendering
+- Smooth visualization updates
+- Real-time scheduling feedback
+
+---
+
+## Production Deployment
+
+The application is deployed on **Render**, providing a production-ready environment for seamless access and demonstration.
+
+---
+
+# 🧠 Scheduling Algorithms Implemented
+
+- ✅ First-Come, First-Served (FCFS)
+- ✅ Shortest Job First (Non-Preemptive)
+- ✅ Shortest Job First (Preemptive)
+- ✅ Priority Scheduling
+- ✅ Round Robin Scheduling
+
+Each implementation follows standard Operating System scheduling semantics and computes corresponding execution statistics.
+
+---
+
+# 📁 Repository Structure
+
+```text
 CPU-Scheduler-Visualizer/
-│
-├── backend/        # C++ scheduling logic
-├── bridge/         # Express server (C++ bridge)
-├── frontend/       # UI (HTML, CSS, JS)
-├── scheduler       # Compiled C++ executable
-└── README.md
+├── backend/            # C++ scheduling engine logic and algorithm implementations
+├── frontend/           # JavaScript visualizer, UI logic, and style assets
+└── README.md           # Project documentation
+```
 
-⚙️ How It Works
+---
 
-User enters process data in the browser
+# 🚀 Local Setup
 
-Frontend sends JSON request to Express server
+## Prerequisites
 
-Node.js writes input JSON
+- C++ Compiler (GCC / G++)
+- Modern Web Browser
+- Git
 
-C++ scheduler executable processes the data
+---
 
-Output JSON is generated
+## 1. Clone the Repository
 
-Server sends result back to frontend
+```bash
+git clone https://github.com/gautamrai-28/CPU-Scheduler-Visualizer.git
 
-Gantt chart and metrics are rendered
+cd CPU-Scheduler-Visualizer
+```
 
-▶️ Run Locally
-1️⃣ Compile C++ Scheduler
-g++ scheduler.cpp -o scheduler
+---
 
+## 2. Compile the C++ Backend
 
-(Windows)
+Navigate to the backend directory.
 
-g++ scheduler.cpp -o scheduler.exe
+```bash
+cd backend
+```
 
-2️⃣ Start Bridge Server
-cd bridge
-npm install
-node server.js
+Compile the scheduling engine using G++.
 
-3️⃣ Open in Browser
+```bash
+g++ *.cpp -o scheduler
+```
 
-Visit:
+Run the executable.
 
-http://localhost:8080
+```bash
+./scheduler
+```
 
-🌐 Live Deployment
+**Windows**
 
-Deployed on Render.
-https://cpu-scheduler-visualizer-ny42.onrender.com/
+```bash
+scheduler.exe
+```
+
+---
+
+## 3. Run the Frontend
+
+Navigate to the frontend directory.
+
+```bash
+cd ../frontend
+```
+
+Open the application using any of the following methods:
+
+- Open `index.html` directly in your browser
+
+or
+
+Serve the directory using a lightweight local server.
+
+Python:
+
+```bash
+python -m http.server
+```
+
+Then visit:
+
+```
+http://localhost:8000
+```
+
+The frontend interfaces with the scheduling engine to provide an interactive visualization sandbox for experimenting with CPU scheduling algorithms.
+
+---
+
+# 🎨 Design & Visual Aesthetics
+
+The interface follows a clean, corporate, and minimalist design philosophy focused on clarity and usability.
+
+Key design characteristics include:
+
+- Responsive layout
+- High readability
+- Structured information hierarchy
+- Interactive scheduling controls
+- Modern visualization components
+- Comparative scheduling graphs
+- Clean typography
+- Intuitive workflow
+- Minimal visual clutter
+
+The UI is specifically optimized for educational demonstrations, technical presentations, and recruiter-friendly project showcases.
+
+---
+
+# 🎯 Learning Objectives
+
+This project demonstrates practical implementation of:
+
+- Operating System Scheduling
+- Process Management
+- CPU Scheduling Policies
+- Algorithm Visualization
+- Data Visualization
+- Full-Stack Integration
+- Interactive UI Development
+- C++ Algorithm Engineering
+- Web-Based Simulation Systems
+
+---
+
+# 💡 Applications
+
+This simulator is useful for:
+
+- Operating System coursework
+- Academic demonstrations
+- Interview preparation
+- DSA and OS revision
+- Classroom visualization
+- Algorithm comparison
+- Self-paced learning
+- Technical portfolio showcases
+
+---
+
+# 🔮 Future Enhancements
+
+- Multi-Level Queue Scheduling
+- Multi-Level Feedback Queue (MLFQ)
+- Highest Response Ratio Next (HRRN)
+- Shortest Remaining Time First (SRTF)
+- Process Import via CSV
+- Execution Speed Controls
+- Interactive Timeline Zoom
+- Dark Mode
+- Performance Comparison Dashboard
+- Exportable Simulation Reports
+
+---
+
+# 🤝 Contributing
+
+Contributions, feature suggestions, and improvements are welcome.
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Push the branch.
+5. Open a Pull Request.
+
+---
+
+# 📄 License
+
+This project is intended for educational and portfolio purposes. Feel free to explore, learn from, and extend the implementation.
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a ⭐ on GitHub. Your support helps increase the visibility of the project and encourages future improvements.
